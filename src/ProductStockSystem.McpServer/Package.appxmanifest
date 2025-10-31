@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
+  xmlns:uap17="http://schemas.microsoft.com/appx/manifest/uap/windows10/17"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  IgnorableNamespaces="uap uap3 uap5 uap17 rescap">
+
+  <Identity
+    Name="ContosoInventory"
+    Publisher="CN=asklar, OID.2.25.311729368913984317654407730594956997722=1"
+    Version="1.0.2.0" />
+
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+
+  <Properties>
+    <DisplayName>ContosoInventory</DisplayName>
+    <PublisherDisplayName>asklar</PublisherDisplayName>
+    <Logo>Images\StoreLogo.png</Logo>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.26100.0"
+      MaxVersionTested="10.0.26100.0" />
+  </Dependencies>
+
+  <Applications>
+    <Application Id="ContosoInventory"
+      Executable="ProductStockSystem.McpServer.exe"
+      EntryPoint="Windows.FullTrustApplication">
+      <uap:VisualElements
+        DisplayName="Contoso Inventory MCP Server"
+        Description="Contoso Inventory MCP Server"
+        BackgroundColor="transparent"
+        Square150x150Logo="Images\Square150x150Logo.png"
+        Square44x44Logo="Images\Square44x44Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png" />
+        <uap:SplashScreen Image="Images\SplashScreen.png" />
+      </uap:VisualElements>
+
+      <Extensions>
+        <uap3:Extension Category="windows.appExtension">
+          <uap3:AppExtension
+            Name="com.microsoft.windows.ai.mcpServer"
+            Id="ContosoInventoryMcpServer"
+            DisplayName="Contoso Inventory MCP Server"
+            PublicFolder="Assets">
+            <uap3:Properties>
+              <Registration>manifest.json</Registration>
+            </uap3:Properties>
+          </uap3:AppExtension>
+        </uap3:Extension>
+
+        <uap5:Extension Category="windows.appExecutionAlias">
+          <uap5:AppExecutionAlias>
+            <uap5:ExecutionAlias Alias="ProductStockSystem.McpServer.exe" />
+          </uap5:AppExecutionAlias>
+        </uap5:Extension>
+
+      </Extensions>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+</Package>

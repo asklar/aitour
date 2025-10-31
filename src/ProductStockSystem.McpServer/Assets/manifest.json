@@ -1,0 +1,50 @@
+{
+  "manifest_version": "0.2",
+  "name": "ContosoInventory",
+  "version": "1.0.0",
+  "description": "A Contoso inventory MCP server",
+  "author": {
+    "name": "asklar"
+  },
+  "icon": "Images/Square44x44Logo.scale-200.png",
+  "server": {
+    "type": "binary",
+    "entry_point": "ProductStockSystem.McpServer.exe",
+    "mcp_config": {
+      "command": "${__dirname}/ProductStockSystem.McpServer.exe",
+      "args": [],
+      "env": {}
+    }
+  },
+  "tools": [
+    {
+      "name": "list_products",
+      "description": "Get a list of all active products in the stock system"
+    },
+    {
+      "name": "get_product",
+      "description": "Get details of a specific product by ID"
+    },
+    {
+      "name": "list_low_stock_products",
+      "description": "Get a list of products that are at or below their reorder level"
+    },
+    {
+      "name": "create_product",
+      "description": "Create a new product in the stock system"
+    },
+    {
+      "name": "update_stock",
+      "description": "Update the stock quantity for a product (stock in, stock out, or adjustment)"
+    },
+    {
+      "name": "get_stock_movements",
+      "description": "Get the stock movement history for a specific product"
+    },
+    {
+      "name": "check_api_health",
+      "description": "Check if the stock API is healthy and responding"
+    }
+  ],
+  "license": "MIT"
+}
