@@ -11,7 +11,7 @@
     "type": "binary",
     "entry_point": "ProductStockSystem.McpServer.exe",
     "mcp_config": {
-      "command": "${__dirname}/ProductStockSystem.McpServer.exe",
+      "command": "ProductStockSystem.McpServer.exe",
       "args": [],
       "env": {}
     }
@@ -46,5 +46,570 @@
       "description": "Check if the stock API is healthy and responding"
     }
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "_meta": {
+    "com.microsoft.windows": {
+      "static_responses": {
+        "initialize": {
+          "protocolVersion": "2025-06-18",
+          "capabilities": {
+            "logging": {},
+            "tools": {
+              "listChanged": true
+            }
+          },
+          "serverInfo": {
+            "name": "ProductStockSystem.McpServer",
+            "version": "1.0.0.0"
+          }
+        },
+        "tools/list": {
+          "tools": [
+            {
+              "name": "list_products",
+              "description": "Get a list of all active products in the stock system",
+              "inputSchema": {
+                "type": "object",
+                "properties": {}
+              },
+              "outputSchema": {
+                "type": "object",
+                "properties": {
+                  "products": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "sku": {
+                          "type": "string"
+                        },
+                        "price": {
+                          "type": "number"
+                        },
+                        "stockQuantity": {
+                          "type": "integer"
+                        },
+                        "reorderLevel": {
+                          "type": "integer"
+                        },
+                        "isLowStock": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "description",
+                        "sku",
+                        "price",
+                        "stockQuantity",
+                        "reorderLevel",
+                        "isLowStock"
+                      ]
+                    }
+                  },
+                  "count": {
+                    "type": "integer"
+                  },
+                  "success": {
+                    "type": "boolean"
+                  },
+                  "error": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "products",
+                  "count",
+                  "success"
+                ]
+              }
+            },
+            {
+              "name": "check_api_health",
+              "description": "Check if the stock API is healthy and responding",
+              "inputSchema": {
+                "type": "object",
+                "properties": {}
+              },
+              "outputSchema": {
+                "type": "object",
+                "properties": {
+                  "apiHealthy": {
+                    "type": "boolean"
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "success": {
+                    "type": "boolean"
+                  },
+                  "error": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "apiHealthy",
+                  "timestamp",
+                  "message",
+                  "success"
+                ]
+              }
+            },
+            {
+              "name": "list_low_stock_products",
+              "description": "Get a list of products that are at or below their reorder level",
+              "inputSchema": {
+                "type": "object",
+                "properties": {}
+              },
+              "outputSchema": {
+                "type": "object",
+                "properties": {
+                  "lowStockProducts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "sku": {
+                          "type": "string"
+                        },
+                        "stockQuantity": {
+                          "type": "integer"
+                        },
+                        "reorderLevel": {
+                          "type": "integer"
+                        },
+                        "shortfall": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "sku",
+                        "stockQuantity",
+                        "reorderLevel",
+                        "shortfall"
+                      ]
+                    }
+                  },
+                  "count": {
+                    "type": "integer"
+                  },
+                  "success": {
+                    "type": "boolean"
+                  },
+                  "error": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "lowStockProducts",
+                  "count",
+                  "success"
+                ]
+              }
+            },
+            {
+              "name": "update_stock",
+              "description": "Update the stock quantity for a product (stock in, stock out, or adjustment)",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "productId": {
+                    "description": "The ID of the product to update",
+                    "type": "integer"
+                  },
+                  "movementType": {
+                    "description": "The type of stock movement: 1=StockIn, 2=StockOut, 3=Adjustment",
+                    "type": "integer"
+                  },
+                  "quantity": {
+                    "description": "The quantity to add, remove, or set (for adjustment)",
+                    "type": "integer"
+                  },
+                  "notes": {
+                    "description": "Notes about the stock movement",
+                    "type": "string",
+                    "default": ""
+                  }
+                },
+                "required": [
+                  "productId",
+                  "movementType",
+                  "quantity"
+                ]
+              },
+              "outputSchema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "movement": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string"
+                      },
+                      "quantity": {
+                        "type": "integer"
+                      },
+                      "notes": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "quantity",
+                      "notes"
+                    ]
+                  },
+                  "updatedProduct": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "sku": {
+                        "type": "string"
+                      },
+                      "newStockQuantity": {
+                        "type": "integer"
+                      },
+                      "reorderLevel": {
+                        "type": "integer"
+                      },
+                      "isLowStock": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "sku",
+                      "newStockQuantity",
+                      "reorderLevel",
+                      "isLowStock"
+                    ]
+                  },
+                  "success": {
+                    "type": "boolean"
+                  },
+                  "error": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "success"
+                ]
+              }
+            },
+            {
+              "name": "create_product",
+              "description": "Create a new product in the stock system",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "The name of the product",
+                    "type": "string"
+                  },
+                  "sku": {
+                    "description": "The SKU (Stock Keeping Unit) for the product",
+                    "type": "string"
+                  },
+                  "price": {
+                    "description": "The price of the product",
+                    "type": "number"
+                  },
+                  "initialStock": {
+                    "description": "The initial stock quantity",
+                    "type": "integer"
+                  },
+                  "reorderLevel": {
+                    "description": "The reorder level for the product",
+                    "type": "integer"
+                  },
+                  "description": {
+                    "description": "The description of the product",
+                    "type": "string",
+                    "default": ""
+                  }
+                },
+                "required": [
+                  "name",
+                  "sku",
+                  "price",
+                  "initialStock",
+                  "reorderLevel"
+                ]
+              },
+              "outputSchema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "product": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "sku": {
+                        "type": "string"
+                      },
+                      "price": {
+                        "type": "number"
+                      },
+                      "stockQuantity": {
+                        "type": "integer"
+                      },
+                      "reorderLevel": {
+                        "type": "integer"
+                      },
+                      "isLowStock": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "description",
+                      "sku",
+                      "price",
+                      "stockQuantity",
+                      "reorderLevel",
+                      "isLowStock"
+                    ]
+                  },
+                  "success": {
+                    "type": "boolean"
+                  },
+                  "error": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "success"
+                ]
+              }
+            },
+            {
+              "name": "get_product",
+              "description": "Get details of a specific product by ID",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "productId": {
+                    "description": "The ID of the product to retrieve",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "productId"
+                ]
+              },
+              "outputSchema": {
+                "type": "object",
+                "properties": {
+                  "product": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "sku": {
+                        "type": "string"
+                      },
+                      "price": {
+                        "type": "number"
+                      },
+                      "stockQuantity": {
+                        "type": "integer"
+                      },
+                      "reorderLevel": {
+                        "type": "integer"
+                      },
+                      "isLowStock": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "description",
+                      "sku",
+                      "price",
+                      "stockQuantity",
+                      "reorderLevel",
+                      "isLowStock"
+                    ]
+                  },
+                  "success": {
+                    "type": "boolean"
+                  },
+                  "error": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "success"
+                ]
+              }
+            },
+            {
+              "name": "get_stock_movements",
+              "description": "Get the stock movement history for a specific product",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "productId": {
+                    "description": "The ID of the product to get movements for",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "productId"
+                ]
+              },
+              "outputSchema": {
+                "type": "object",
+                "properties": {
+                  "productId": {
+                    "type": "integer"
+                  },
+                  "movements": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "productName": {
+                          "type": "string"
+                        },
+                        "movementType": {
+                          "type": "string"
+                        },
+                        "quantity": {
+                          "type": "integer"
+                        },
+                        "notes": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "productName",
+                        "movementType",
+                        "quantity",
+                        "notes",
+                        "createdAt"
+                      ]
+                    }
+                  },
+                  "count": {
+                    "type": "integer"
+                  },
+                  "success": {
+                    "type": "boolean"
+                  },
+                  "error": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "productId",
+                  "movements",
+                  "count",
+                  "success"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
 }
