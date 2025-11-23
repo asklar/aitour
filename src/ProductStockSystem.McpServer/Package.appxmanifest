@@ -10,7 +10,7 @@
   IgnorableNamespaces="uap uap3 uap5 uap17 rescap">
 
   <Identity
-    Name="ContosoInventory"
+    Name="ZavaInventory"
     Publisher="CN=asklar, OID.2.25.311729368913984317654407730594956997722=1"
     Version="1.0.2.0" />
 
@@ -19,7 +19,7 @@
   </Resources>
 
   <Properties>
-    <DisplayName>ContosoInventory</DisplayName>
+    <DisplayName>ZavaInventory</DisplayName>
     <PublisherDisplayName>asklar</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>
@@ -30,12 +30,12 @@
   </Dependencies>
 
   <Applications>
-    <Application Id="ContosoInventory"
+    <Application Id="ZavaInventory"
       Executable="ProductStockSystem.McpServer.exe"
       EntryPoint="Windows.FullTrustApplication">
       <uap:VisualElements
-        DisplayName="Contoso Inventory MCP Server"
-        Description="Contoso Inventory MCP Server"
+        DisplayName="Zava DIY Inventory MCP Server"
+        Description="Zava DIY Inventory MCP Server"
         BackgroundColor="transparent"
         Square150x150Logo="Images\Square150x150Logo.png"
         Square44x44Logo="Images\Square44x44Logo.png">
@@ -47,8 +47,8 @@
         <uap3:Extension Category="windows.appExtension">
           <uap3:AppExtension
             Name="com.microsoft.windows.ai.mcpServer"
-            Id="ContosoInventoryMcpServer"
-            DisplayName="Contoso Inventory MCP Server"
+            Id="ZavaInventoryMcpServer"
+            DisplayName="Zava DIY Inventory MCP Server"
             PublicFolder="Assets">
             <uap3:Properties>
               <Registration>manifest.json</Registration>

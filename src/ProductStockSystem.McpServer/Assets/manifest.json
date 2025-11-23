@@ -1,8 +1,8 @@
 {
   "manifest_version": "0.2",
-  "name": "ContosoInventory",
+  "name": "ZavaInventory",
   "version": "1.0.0",
-  "description": "A Contoso inventory MCP server",
+  "description": "A Zava DIY home improvement inventory MCP server for a Frontier Firm",
   "author": {
     "name": "asklar"
   },
