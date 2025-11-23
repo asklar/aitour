@@ -38,16 +38,16 @@ public class StockDbContext : DbContext
                   .OnDelete(DeleteBehavior.Cascade);
         });
 
-        // Seed some initial data
+        // Seed some initial data - Zava DIY home improvement products
         var now = DateTime.UtcNow;
         modelBuilder.Entity<Product>().HasData(
             new Product
             {
                 Id = 1,
-                Name = "Laptop Computer",
-                Description = "High-performance laptop for business use",
-                Sku = "LAP-001",
-                Price = 999.99m,
+                Name = "Cordless Power Drill",
+                Description = "18V cordless drill with 2 batteries and charger",
+                Sku = "DRILL-001",
+                Price = 89.99m,
                 StockQuantity = 15,
                 ReorderLevel = 5,
                 IsActive = true,
@@ -57,10 +57,10 @@ public class StockDbContext : DbContext
             new Product
             {
                 Id = 2,
-                Name = "Wireless Mouse",
-                Description = "Ergonomic wireless mouse with USB receiver",
-                Sku = "MOU-001",
-                Price = 29.99m,
+                Name = "Interior Paint - White",
+                Description = "Premium interior latex paint, 1 gallon, white",
+                Sku = "PAINT-001",
+                Price = 34.99m,
                 StockQuantity = 3,
                 ReorderLevel = 10,
                 IsActive = true,
@@ -70,10 +70,10 @@ public class StockDbContext : DbContext
             new Product
             {
                 Id = 3,
-                Name = "Mechanical Keyboard",
-                Description = "RGB mechanical keyboard with blue switches",
-                Sku = "KEY-001",
-                Price = 149.99m,
+                Name = "Garden Rake",
+                Description = "Heavy-duty steel garden rake with wood handle",
+                Sku = "RAKE-001",
+                Price = 24.99m,
                 StockQuantity = 8,
                 ReorderLevel = 3,
                 IsActive = true,
@@ -99,7 +99,7 @@ public class StockDbContext : DbContext
                 ProductId = 1,
                 MovementType = StockMovementType.StockOut,
                 Quantity = 5,
-                Notes = "Sale to customer",
+                Notes = "Weekend DIY sale",
                 CreatedAt = now.AddDays(-3)
             },
             new StockMovement
@@ -117,7 +117,7 @@ public class StockDbContext : DbContext
                 ProductId = 2,
                 MovementType = StockMovementType.StockOut,
                 Quantity = 7,
-                Notes = "Bulk sale",
+                Notes = "Contractor bulk order",
                 CreatedAt = now.AddDays(-2)
             },
             new StockMovement
@@ -135,7 +135,7 @@ public class StockDbContext : DbContext
                 ProductId = 3,
                 MovementType = StockMovementType.StockOut,
                 Quantity = 7,
-                Notes = "Office purchase",
+                Notes = "Spring gardening season sales",
                 CreatedAt = now.AddDays(-1)
             }
         );

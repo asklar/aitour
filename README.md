@@ -1,6 +1,6 @@
-# Product Stock System
+# Product Stock System - Zava DIY
 
-A .NET 10 demo solution featuring a product stock management system with both a Web API and an MCP (Model Context Protocol) stdio server.
+A .NET 10 demo solution featuring a product stock management system for Zava DIY, a home improvement retailer representing a Frontier Firm. The solution includes both a Web API and an MCP (Model Context Protocol) stdio server.
 
 ## Projects Structure
 
@@ -83,10 +83,10 @@ The MCP server uses the environment variable `STOCK_API_URL` to configure the AP
 **Development**: The MCP server now defaults to the same port the API uses in development, so it should work out-of-the-box without additional configuration.
 
 ## Sample Data
-The API includes sample products:
-1. **Wireless Mouse** (SKU: WM001) - 50 units, reorder at 10
-2. **USB Keyboard** (SKU: KB002) - 5 units, reorder at 10 (low stock)
-3. **Monitor Stand** (SKU: MS003) - 25 units, reorder at 5
+The API includes sample home improvement products from Zava DIY:
+1. **Cordless Power Drill** (SKU: DRILL-001) - 15 units, reorder at 5
+2. **Interior Paint - White** (SKU: PAINT-001) - 3 units, reorder at 10 (low stock)
+3. **Garden Rake** (SKU: RAKE-001) - 8 units, reorder at 3
 
 ## Architecture Highlights
 
