@@ -24,6 +24,13 @@ MCP stdio server that wraps the API calls:
 - Implements Microsoft's hosting pattern with dependency injection
 - Provides 7 MCP tools for stock management
 
+### ProductStockSystem.McpClient
+Lightweight console app that connects to `odr.exe` via MCP, invokes the `list_mcp_servers` tool, and prints the returned registry (compatible with `server.json`) as a formatted table.
+Key capabilities:
+- Uses the latest `ModelContextProtocol` client APIs (stdio transport)
+- Supports overriding the `odr` executable path, working directory, timeout, and forwarded arguments
+- Parses structured tool output and displays the server registry in a tabular view for quick inspection
+
 ## API Endpoints
 
 | Method | Endpoint | Description |
@@ -81,6 +88,25 @@ The MCP server uses the environment variable `STOCK_API_URL` to configure the AP
 - For production: Set to your actual API URL (e.g., `https://your-api.azurewebsites.net`)
 
 **Development**: The MCP server now defaults to the same port the API uses in development, so it should work out-of-the-box without additional configuration.
+
+### Running the MCP Client (odr registry crawler)
+
+Use this project to quickly inspect the MCP servers exposed by `odr.exe`:
+
+```powershell
+dotnet run --project src/ProductStockSystem.McpClient -- --odr "C:\path\to\odr.exe" -- list
+```
+
+Command-line options:
+
+| Option | Description |
+| --- | --- |
+| `--odr`, `-c` | Path to the `odr` executable. Defaults to `odr.exe` on `PATH` or the `ODR_PATH` environment variable. |
+| `--working-dir`, `-w` | Working directory for the spawned process (or `ODR_WORKING_DIR`). |
+| `--timeout`, `-t` | Timeout in seconds (default 60). |
+| `--` | Everything after `--` is passed directly to `odr.exe` (e.g., `list`). |
+
+The client connects via stdio MCP, calls the `list_mcp_servers` tool, and renders the registry response as a table that includes the server name, summary, tags, transport, and home page.
 
 ## Sample Data
 The API includes sample products:

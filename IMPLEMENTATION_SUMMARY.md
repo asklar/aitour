@@ -31,6 +31,8 @@ ProductStockSystem/
         │   └── StockApiService.cs          # HTTP client service for API calls
         └── Tools/
             └── ProductStockTools.cs        # MCP tools implementation
+   └── ProductStockSystem.McpClient/        # MCP client that lists registry servers via odr.exe
+      └── Program.cs                      # Console entry point and table rendering logic
 ```
 
 ## ✅ Key Features Implemented
@@ -51,7 +53,13 @@ ProductStockSystem/
 - **Error Handling**: Structured JSON responses with success/error states
 - **Configuration**: Environment-based API URL configuration
 
-### 3. Shared Models (ProductStockSystem.Models)
+### 3. MCP Client (ProductStockSystem.McpClient)
+- **Framework**: ModelContextProtocol SDK client APIs (v0.4.0-preview.3)
+- **Function**: Connects to `odr.exe` via stdio transport and invokes `list_mcp_servers`
+- **Output**: Parses the MCP registry `server.json` payload and prints it as a formatted console table
+- **Configuration**: Supports CLI flags or environment variables for executable path, working directory, timeout, and forwarded args
+
+### 4. Shared Models (ProductStockSystem.Models)
 - **Entities**: Product, StockMovement with EF Core attributes
 - **DTOs**: Clean separation between internal and external data
 - **Validation**: Data annotations for input validation

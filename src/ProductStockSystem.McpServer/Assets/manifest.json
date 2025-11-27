@@ -1,7 +1,7 @@
 {
   "manifest_version": "0.2",
-  "name": "ContosoInventory",
-  "version": "1.0.0",
+  "name": "ProductStockSystem.McpServer",
+  "version": "1.0.0.0",
   "description": "A Contoso inventory MCP server",
   "author": {
     "name": "asklar"
